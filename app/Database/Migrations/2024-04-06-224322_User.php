@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class AddUser extends Migration
+class User extends Migration
 {
     public function up()
     {
@@ -15,6 +15,14 @@ class AddUser extends Migration
                 'unsigned' => true,
                 'auto_increment' => true
             ],
+            'firstName' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+            ],
+            'lastName' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+            ],
             'email' => [
                 'type' => 'VARCHAR',
                 'unique' => true,
@@ -23,6 +31,11 @@ class AddUser extends Migration
             'password' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
+            ],
+            'isActive' => [
+                'type' => 'INT',
+                'constraint' => 1,
+                'default' => 1,
             ],
             'created_at' => [
                 'type' => 'TIMESTAMP',
@@ -34,11 +47,11 @@ class AddUser extends Migration
             ],
         ]);
         $this->forge->addPrimaryKey('id');
-        $this->forge->createTable('users');
+        $this->forge->createTable('user');
     }
   
     public function down()
     {
-        $this->forge->dropTable('users');
+        $this->forge->dropTable('user');
     }
 }

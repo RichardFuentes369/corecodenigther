@@ -55,4 +55,29 @@ abstract class BaseController extends Controller
 
         // E.g.: $this->session = \Config\Services::session();
     }
+
+    public function paginacionConsulta($tabla, $start, $field, $order, $limit){
+        
+        $this->db = db_connect();
+        $model = $this->db->table($tabla);
+        
+        if($start === null){
+            return null;
+        }else{
+            if($field){
+                $model = $model->orderBy($field, $order);
+            }else{
+                $model = $model->orderBy('id','asc');
+            }
+
+            $model = 
+                    $model->limit(
+                        $limit,
+                        $start
+                    )->get()->getResult()
+            ;
+            return $model;
+        }
+
+    }
 }
